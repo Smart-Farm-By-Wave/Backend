@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv");
 const field = require("./models/fieldModel");
 const central = require("./models/centralModel");
+const CentralGraph = require("./models/centralGraphModel");
 const SoilMoisture = require("./models/soilMoistureModel")
 const Tree = require("./models/treeModel")
 
@@ -52,6 +53,7 @@ const testAddONe = async() => {
 }
 
 const createTimeSeries = async () => {
+    await CentralGraph.find()
     await SoilMoisture.find()
 }
 
@@ -71,7 +73,6 @@ const genUpdateTree = async () => {
 }
 
 
-// generateCentral()
+generateCentral()
 generateFields()
-// setInterval(testAddONe, 1000);
-// genTree()
+genTree()
