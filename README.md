@@ -21,8 +21,7 @@ DATABASE_PASSWORD is your mongoDB connection password
 ```
 npm install
 ```
-4. Create all the necessity database collections and document using functions in the databaseTestScript.js file  
-the functions you needed to run once are 
+4. Run SetupAndDebugs.js to Create all the necessary database collections and document. The required function to start is already enabled, but if it's somehow not working or you tried to use other debug functions in the file, the functions needed to start are
 ```
 generateFields() --> generate the 4 fields collections
 createTimeSeries() --> generate the time series databases
