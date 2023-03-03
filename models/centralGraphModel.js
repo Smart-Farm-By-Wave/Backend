@@ -6,6 +6,7 @@ const centralGraphSchema = new mongoose.Schema(
         humidity: Number,
         temp: Number,
         rainAmount: Number,
+        calcRainAmount: Number
     },
     {
         timeseries: {

@@ -8,38 +8,38 @@ const subscribedTopic = ["moisture","central","plantStatus"]
 
 // START OF REAL CONNECTION
 
-// const host = 'broker.emqx.io'
-// const port = '1883'
-// const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
+const host = 'broker.emqx.io'
+const port = '1883'
+const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
 
-// const connectUrl = `mqtt://${host}:${port}`
-// const client = mqtt.connect(connectUrl, {
-//   clientId,
-//   clean: true,
-//   connectTimeout: 4000,
-//   username: 'emqx',
-//   password: 'public',
-//   reconnectPeriod: 1000,
-// })
+const connectUrl = `mqtt://${host}:${port}`
+const client = mqtt.connect(connectUrl, {
+  clientId,
+  clean: true,
+  connectTimeout: 4000,
+  username: 'emqx',
+  password: 'public',
+  reconnectPeriod: 1000,
+})
 
 // END OF REAL CONNECTION
 
-// START OF LOCAL CONNECTION
+// // START OF LOCAL CONNECTION
 
-const MQTT_SERVER = "0.0.0.0";
-const MQTT_PORT = "1883";
-const MQTT_USER = ""; 
-const MQTT_PASSWORD = "";
+// const MQTT_SERVER = "0.0.0.0";
+// const MQTT_PORT = "1883";
+// const MQTT_USER = ""; 
+// const MQTT_PASSWORD = "";
 
-// Connect MQTT
-const client = mqtt.connect({
-    host: MQTT_SERVER,
-    port: MQTT_PORT,
-    username: MQTT_USER,
-    password: MQTT_PASSWORD
-});
+// // Connect MQTT
+// const client = mqtt.connect({
+//     host: MQTT_SERVER,
+//     port: MQTT_PORT,
+//     username: MQTT_USER,
+//     password: MQTT_PASSWORD
+// });
 
-// END OF LOCAL CONNECTION
+// // END OF LOCAL CONNECTION
 
 client.on('connect', function () {
     // Subscribe any topic
