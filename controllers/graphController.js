@@ -102,7 +102,11 @@ exports.getGraph = catchAsync(async (req, res, next) => {
             ])
 
             for(el of aggregate){
-                time.push(`${el._id.hour}:${el._id.minute}`)
+                let minute = el._id.minute.toString()
+                if(minute.length < 2){
+                    minute = '0' + minute
+                }
+                time.push(`${el._id.hour}:${minute}`)
                 data.push(el.average)
             }
 
