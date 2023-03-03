@@ -15,7 +15,7 @@ exports.getMainData = catchAsync(async (req, res, next) => {
     res.status(201).json({
         temp: newest.temp,
         humidity: newest.humidity,
-        rainfall: newest.rainAmount
+        rainfall: newest.calcRainAmount
       });
 })
 
