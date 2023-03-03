@@ -9,7 +9,7 @@ const soilMoistureSchema = new mongoose.Schema(
     {
         timeseries: {
             timeField: 'timeStamp',
-            metaField: 'fieldNO',
+            metaField: 'farmID',
             granularity: 'seconds',
         },
     }

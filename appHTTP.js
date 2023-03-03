@@ -5,11 +5,12 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const cors = require("cors");
 
-const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
+const AppError = require("./utils/appError");
 
-// Requite the router folder
-// const testRouter = require('./routes/testRoutes')
+// Require the router folder
+const centralRoutes = require('./routes/centralRoutes')
+const fieldRoutes = require('./routes/fieldRoutes')
 
 const app = express();
 
@@ -48,26 +49,27 @@ app.use(
 );
 
 //CORS!!!!!!!!!!
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "http://localhost:5000",
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
+// app.use(cors(corsOptions));
 
 // Serving static files
 // app.use(express.static(`${__dirname}/public`));
 
 // Test middleware
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
-});
+// app.use((req, res, next) => {
+//   req.requestTime = new Date().toISOString();
+//   next();
+// });
 
 // Route
 
-// Apple route eg.
-// app.use('/test', testRouter);
+// App route eg.
+app.use('/api/central/', centralRoutes);
+app.use('/api/field/', fieldRoutes);
 
 
 // Handle other invalid routes
