@@ -11,6 +11,7 @@ const AppError = require("./utils/appError");
 // Require the router folder
 const centralRoutes = require('./routes/centralRoutes')
 const fieldRoutes = require('./routes/fieldRoutes')
+const graphRoutes = require('./routes/graphRoutes')
 
 const app = express();
 
@@ -70,6 +71,7 @@ app.use(
 // App route eg.
 app.use('/api/central/', centralRoutes);
 app.use('/api/field/', fieldRoutes);
+app.use('/api/graph/', graphRoutes);
 
 
 // Handle other invalid routes
