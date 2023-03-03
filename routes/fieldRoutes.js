@@ -6,7 +6,7 @@ const router = express.Router();
 //Router
 
 // Get the humidity
-router.get("/humidity/:id", fieldController.getHumidity);
+router.get("/moisture/:id", fieldController.getMoisture);
 
 // plant name, by who, recommended humidity
 router.get("/detail/:id", fieldController.getFarmDetail);

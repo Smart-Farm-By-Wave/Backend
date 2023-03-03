@@ -58,10 +58,13 @@ const createTimeSeries = async () => {
 }
 
 const genTree = async () => {
-    await Tree.create({
-        treeName: "kakao tree",
-        recommendedHumidity: 50
-    })
+    const trees = ["basil","bean","cabbage","spinach","strawberry"]
+    for (let el of trees){
+        await Tree.create({
+            treeName: el,
+            recommendedHumidity: 50
+        })
+    }
 }
 
 const genUpdateTree = async () => {

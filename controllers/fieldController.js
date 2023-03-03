@@ -4,7 +4,7 @@ const SoilMoisture = require("./../models/soilMoistureModel")
 const Field = require("./../models/fieldModel")
 const Tree = require("./../models/treeModel")
 
-exports.getHumidity = catchAsync(async (req, res, next) => {
+exports.getMoisture = catchAsync(async (req, res, next) => {
     // Find the farm ID from the index
     const farm = await Field.findOne({fieldNO: req.params.id}).exec()
     if(!farm){
@@ -22,7 +22,7 @@ exports.getHumidity = catchAsync(async (req, res, next) => {
     }
 
     res.status(201).json({
-        humidity:moisture.moisture
+        moisture:moisture.moisture
       });
 })
 
