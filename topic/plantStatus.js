@@ -1,4 +1,3 @@
-const SoilMoisture = require("../models/soilMoistureModel")
 const CentralGraph = require("../models/centralGraphModel")
 
 const maxHardwareRainHeight = 5.5

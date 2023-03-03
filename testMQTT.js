@@ -28,3 +28,12 @@ client.on('message', function (topic, message) {
     // message is Buffer
     console.log(`${topic} : ${message.toString()}`);
 });
+
+const lmao = {
+    index: 1,
+    moisture: 20
+}
+
+setInterval(() => {
+    client.publish("embedded/moisture", lmao.toString());
+}, 5000);

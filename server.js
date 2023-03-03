@@ -1,6 +1,5 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const calcWater = require("./utils/calcWater")
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! Shutting down ...");

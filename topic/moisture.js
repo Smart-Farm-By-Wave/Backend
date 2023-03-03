@@ -4,6 +4,7 @@ const Tree = require("../models/treeModel")
 
 exports.insertNewMoisture = async (data) => {
     json_data = JSON.parse(data)
+    // console.log(json_data)
     // console.log(json_data.index)
 
     farm = await Field.findOne({fieldNO: json_data.index})

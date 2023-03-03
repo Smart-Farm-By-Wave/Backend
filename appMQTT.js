@@ -9,10 +9,10 @@ const subscribedTopic = ["moisture","central","plantStatus"]
 // START OF REAL CONNECTION
 
 const host = 'broker.emqx.io'
-const port = '1883'
+const MQTTport = '1883'
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
 
-const connectUrl = `mqtt://${host}:${port}`
+const connectUrl = `mqtt://${host}:${MQTTport}`
 const client = mqtt.connect(connectUrl, {
   clientId,
   clean: true,
