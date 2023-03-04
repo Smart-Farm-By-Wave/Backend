@@ -5,8 +5,8 @@ const SoilMoisture = require("./../models/soilMoistureModel")
 const Field = require("./../models/fieldModel")
 
 exports.getGraph = catchAsync(async (req, res, next) => {
-    const dataQueried = req.body.data
-    const timeQueried = req.body.time
+    const dataQueried = req.query.data
+    const timeQueried = req.query.time
 
     // Real server use this
     const cur_time = Date.now()
@@ -40,7 +40,7 @@ exports.getGraph = catchAsync(async (req, res, next) => {
     }
 
     // If the data is soilMoisture check if the field exists
-    if (dataQueried === "soilMoisture" && !req.body.field){
+    if (dataQueried === "soilMoisture" && !req.query.field){
         return next(
             new AppError("The field ID is missing to find data for soilMoisture.", 400)
         );
@@ -73,7 +73,7 @@ exports.getGraph = catchAsync(async (req, res, next) => {
             beforeTime = new Date(cur_time-3600000).toISOString()
             if(dataQueried === "soilMoisture"){
                 // Find the farm ID from the index
-                const farm = await Field.findOne({fieldNO: req.body.field}).exec()
+                const farm = await Field.findOne({fieldNO: req.query.field}).exec()
                 if(!farm){
                     return next(
                         new AppError("No farm data exists yet or invalid ID.", 400)
@@ -118,7 +118,7 @@ exports.getGraph = catchAsync(async (req, res, next) => {
 
             if(dataQueried === "soilMoisture"){
                 // Find the farm ID from the index
-                const farm = await Field.findOne({fieldNO: req.body.field}).exec()
+                const farm = await Field.findOne({fieldNO: req.query.field}).exec()
                 if(!farm){
                     return next(
                         new AppError("No farm data exists yet or invalid ID.", 400)
@@ -159,7 +159,7 @@ exports.getGraph = catchAsync(async (req, res, next) => {
 
             if(dataQueried === "soilMoisture"){
                 // Find the farm ID from the index
-                const farm = await Field.findOne({fieldNO: req.body.field}).exec()
+                const farm = await Field.findOne({fieldNO: req.query.field}).exec()
                 if(!farm){
                     return next(
                         new AppError("No farm data exists yet or invalid ID.", 400)
