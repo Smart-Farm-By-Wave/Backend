@@ -70,6 +70,20 @@ exports.activateFarm = catchAsync(async (req, res, next) => {
         treeType: tree._id
     }
 
+    // TEMP CODE TO INSERT ITEM
+    // const farm = await Field.findOne({fieldNO: req.params.id}).select({__v:0, fieldNO:0, isWatering:0}).lean()
+    // if(!farm){
+    //     return next(
+    //         new AppError("No farm data exists yet or invalid ID.", 400)
+    //       );
+    // }
+
+    await SoilMoisture.create({
+        moisture: 100,
+        timeStamp: Date.now(),
+        farmID: farm._id
+    })
+
     // Check if the query exists
     const test = await Field.findOne(query)
     if(!test){
