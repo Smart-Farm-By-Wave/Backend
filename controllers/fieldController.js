@@ -43,13 +43,11 @@ exports.getFarmDetail = catchAsync(async (req, res, next) => {
           );
     }
 
-    // Cleaning the data before sending
-    farm.plantName = tree.treeName
-    delete farm.treeType
-
     res.status(201).json({
-        farm
-      });
+        isUsing: farm.isUsing,
+        plantName: tree.treeName,
+        byWho: farm.planter
+      })
 })
 
 exports.activateFarm = catchAsync(async (req, res, next) => {
