@@ -35,12 +35,18 @@ exports.getFarmDetail = catchAsync(async (req, res, next) => {
           );
     }
 
+    let tree
+
     // Find the tree name from the tree ID
-    const tree = await Tree.findById(farm.treeType)
-    if(!tree){
-        return next(
-            new AppError("No tree data exists yet or invalid tree ID.", 400)
-          );
+    if(farm.isUsing == true){
+        tree = await Tree.findById(farm.treeType)
+        if(!tree){
+            return next(
+                new AppError("No tree data exists yet or invalid tree ID.", 400)
+            );
+        }
+    } else {
+        tree = {}
     }
 
     res.status(201).json({
