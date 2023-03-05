@@ -3,7 +3,7 @@ const Field = require("../models/fieldModel")
 const Tree = require("../models/treeModel")
 
 exports.insertNewMoisture = async (data) => {
-    json_data = JSON.parse(data)
+    let json_data = JSON.parse(data)
     // console.log(json_data)
     // console.log(json_data.index)
 
@@ -43,6 +43,6 @@ exports.insertNewMoisture = async (data) => {
         })
     }
     // console.log(res)
-
+    // console.log(`MQTT/moisture : updated field NO.${json_data.index}`)
     return res
 }
