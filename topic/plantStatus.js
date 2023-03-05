@@ -12,7 +12,7 @@ exports.insertNewPlantStatus = async (data) => {
     // FIX RAIN AMOUNT
     const newest = await CentralGraph.find().sort({ timeStamp: -1 }).limit(1)
     // console.log(json_data.rainAmount)
-    let newCalcRain = (json_data.rainAmount - newest[0].rainAmount) / ((json_data.timeStamp - newest[0].timeStamp) * 1000)
+    let newCalcRain = (json_data.rainAmount - newest[0].rainAmount) / ((json_data.timeStamp - newest[0].timeStamp) / 1000)
     
     if(newCalcRain < 0 || newCalcRain == NaN){
         newCalcRain = 0
