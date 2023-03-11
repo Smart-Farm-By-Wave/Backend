@@ -11,15 +11,15 @@ exports.insertNewMoisture = async (data) => {
         return
     }
 
-    farm = await Field.findOne({fieldNO: json_data.index})
-    tree = await Tree.findById(farm.treeType)
+    let farm = await Field.findOne({fieldNO: json_data.index})
+    let tree = await Tree.findById(farm.treeType)
 
-    res = {
+    let res = {
         index: json_data.index,
         ignore: true
     }
 
-    send = await SoilMoisture.create({
+    let send = await SoilMoisture.create({
         moisture: json_data.moisture,
         timeStamp: Date.now(),
         farmID: farm._id

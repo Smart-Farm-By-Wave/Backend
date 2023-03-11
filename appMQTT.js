@@ -3,8 +3,9 @@ const subscribeTo = require('./utils/mqtt');
 const moisture = require('./topic/moisture');
 const central = require('./topic/central');
 const plantStatus = require('./topic/plantStatus');
+const darkMode = require('./topic/darkmode');
 
-const subscribedTopic = ["moisture","central","plantStatus"]
+const subscribedTopic = ["moisture","central","plantStatus","darkmode"]
 
 // START OF REAL CONNECTION
 
@@ -73,6 +74,8 @@ client.on('message', async (topic, message) => {
         case ("embedded/plantStatus"):
             plantStatus.insertNewPlantStatus(message.toString())
             break;
+        case ("embedded/darkmode"):
+            darkMode.updateDarkmode(message.toString())
     }
 });
 

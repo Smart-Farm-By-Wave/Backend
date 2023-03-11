@@ -11,6 +11,9 @@ const centralSchema = new mongoose.Schema({
     },
     waterLevel: {
         type: Number
+    },
+    darkMode: {
+        type : Boolean
     }
 })
 
