@@ -14,4 +14,7 @@ router.get("/fire", centralController.getFireData);
 // Water remaining data
 router.get("/waterRemaining", centralController.getWaterLevelData);
 
+// Dark mode
+router.get("/darkmode", centralController.getDarkMode)
+
 module.exports = router;
