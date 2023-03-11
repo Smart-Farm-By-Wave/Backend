@@ -7,6 +7,10 @@ exports.insertNewMoisture = async (data) => {
     // console.log(json_data)
     // console.log(json_data.index)
 
+    if(json_data.moisture <= 0){
+        return
+    }
+
     farm = await Field.findOne({fieldNO: json_data.index})
     tree = await Tree.findById(farm.treeType)
 
