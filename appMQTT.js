@@ -1,26 +1,26 @@
-const mqtt = require('mqtt');
-const subscribeTo = require('./utils/mqtt');
-const moisture = require('./topic/moisture');
-const central = require('./topic/central');
-const plantStatus = require('./topic/plantStatus');
+const mqtt = require("mqtt");
+const subscribeTo = require("./utils/mqtt");
+const moisture = require("./topic/moisture");
+const central = require("./topic/central");
+const plantStatus = require("./topic/plantStatus");
 
-const subscribedTopic = ["moisture","central","plantStatus"]
+const subscribedTopic = ["moisture", "central", "plantStatus"];
 
 // START OF REAL CONNECTION
 
-const host = 'broker.emqx.io'
-const MQTTport = '1883'
-const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
+const host = "192.168.18.107";
+const MQTTport = "1883";
+const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
-const connectUrl = `mqtt://${host}:${MQTTport}`
+const connectUrl = `mqtt://${host}:${MQTTport}`;
 const client = mqtt.connect(connectUrl, {
   clientId,
   clean: true,
   connectTimeout: 4000,
-  username: 'emqx',
-  password: 'public',
+  username: "emqx",
+  password: "public",
   reconnectPeriod: 1000,
-})
+});
 
 // END OF REAL CONNECTION
 
@@ -28,7 +28,7 @@ const client = mqtt.connect(connectUrl, {
 
 // const MQTT_SERVER = "0.0.0.0";
 // const MQTT_PORT = "1883";
-// const MQTT_USER = ""; 
+// const MQTT_USER = "";
 // const MQTT_PASSWORD = "";
 
 // // Connect MQTT
@@ -41,39 +41,43 @@ const client = mqtt.connect(connectUrl, {
 
 // // END OF LOCAL CONNECTION
 
-client.on('connect', function () {
-    // Subscribe any topic
-    console.log("MQTT Connect");
-    subscribeTo(client, subscribedTopic)
+client.on("connect", function () {
+  // Subscribe any topic
+  console.log("MQTT Connect");
+  subscribeTo(client, subscribedTopic);
 });
 
 // Receive Message and print on terminal
-client.on('message', async (topic, message) => {
-    // message is Buffer
+client.on("message", async (topic, message) => {
+  // message is Buffer
 
-    // Detailed log message from topic
-    // console.log(`${topic} : ${message.toString()}`);
+  // Detailed log message from topic
+  // console.log(`${topic} : ${message.toString()}`);
 
-    // Simple log 
-    console.log(`${topic} has published.`)
+  // Simple log
+  console.log(`${topic} has published.`);
 
-    switch(topic) {
-        case ("embedded/moisture"):
-            res = await moisture.insertNewMoisture(message.toString())
-            if(res.ignore != true){
-                client.publish(`embedded/watering/${res.index}`, JSON.stringify({
-                    activate: res.water
-                }));
-                console.log(`Also change hardware water to ${res.water}.`)
-            }
-            break;
-        case ("embedded/central"):
-            central.updateCentral(message.toString())
-            break;
-        case ("embedded/plantStatus"):
-            plantStatus.insertNewPlantStatus(message.toString())
-            break;
-    }
+  switch (topic) {
+    case "embedded/moisture":
+      // console.log(message.toString());
+      res = await moisture.insertNewMoisture(message.toString());
+      if (res.ignore != true) {
+        client.publish(
+          `embedded/watering/${res.index}`,
+          JSON.stringify({
+            activate: res.water,
+          })
+        );
+        console.log(`Also change ${res.index} hardware water to ${res.water}.`);
+      }
+      break;
+    case "embedded/central":
+      central.updateCentral(message.toString());
+      break;
+    case "embedded/plantStatus":
+      plantStatus.insertNewPlantStatus(message.toString());
+      break;
+  }
 });
 
 module.exports = client;
