@@ -19,6 +19,10 @@ exports.insertNewMoisture = async (data) => {
         ignore: true
     }
 
+    if(!farm.isUsing){
+        return res
+    }
+
     let send = await SoilMoisture.create({
         moisture: json_data.moisture,
         timeStamp: Date.now(),

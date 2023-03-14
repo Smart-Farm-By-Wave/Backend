@@ -52,6 +52,13 @@ const testAddONe = async() => {
     }
 }
 
+const reset = async() => {
+    let update = {
+        isWatering: false
+    }
+    await field.updateMany({},update)
+}
+
 const createTimeSeries = async () => {
     await CentralGraph.find()
     await SoilMoisture.find()
@@ -100,7 +107,8 @@ const generateData = async (start,end) => {
     console.log(`Done for ${start} til ${end}`)
 }
 
-generateCentral()
-generateFields()
-genTree()
+// generateCentral()
+// generateFields()
+// genTree()
 // generateData(86400, 604800)
+reset()
