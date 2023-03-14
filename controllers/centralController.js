@@ -9,7 +9,7 @@ exports.getMainData = catchAsync(async (req, res, next) => {
     if(!newest){
         return next(
             new AppError("No data exists yet.", 400)
-          );
+            );
     }
 
     res.status(201).json({
@@ -46,4 +46,17 @@ exports.getWaterLevelData = catchAsync(async (req, res, next) => {
     res.status(201).json({
         amount: newest.waterLevel,
       });
+})
+
+exports.getDarkMode = catchAsync(async (req, res, next) => {
+    const newest = (await Central.findOne())
+    if(!newest){
+        return next(
+            new AppError("No data exists yet.", 400)
+          );
+    }
+
+    res.status(201).json({
+        darkMode: newest.darkMode
+    })
 })

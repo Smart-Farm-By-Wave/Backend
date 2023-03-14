@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const resetServer = require("./utils/resetServer")
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! Shutting down ...");
@@ -22,8 +23,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
+  .then(async () => {
     console.log("DB connection successful");
+    await resetServer.resetServer()
   });
 
 const port = process.env.PORT || 5000;

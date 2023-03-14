@@ -7,10 +7,14 @@ exports.insertNewMoisture = async (data) => {
     // console.log(json_data)
     // console.log(json_data.index)
 
+    if(json_data.moisture <= 0){
+        return
+    }
+
     let farm = await Field.findOne({fieldNO: json_data.index})
     let tree = await Tree.findById(farm.treeType)
 
-    res = {
+    let res = {
         index: json_data.index,
         ignore: true
     }
@@ -22,7 +26,11 @@ exports.insertNewMoisture = async (data) => {
 
     // console.log(tree.recommendedHumidity)
 
-    send = await SoilMoisture.create({
+    if(!farm.isUsing){
+        return res
+    }
+
+    let send = await SoilMoisture.create({
         moisture: json_data.moisture,
         timeStamp: Date.now(),
         farmID: farm._id

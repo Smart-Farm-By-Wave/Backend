@@ -1,10 +1,11 @@
-const mqtt = require("mqtt");
-const subscribeTo = require("./utils/mqtt");
-const moisture = require("./topic/moisture");
-const central = require("./topic/central");
-const plantStatus = require("./topic/plantStatus");
+const mqtt = require('mqtt');
+const subscribeTo = require('./utils/mqtt');
+const moisture = require('./topic/moisture');
+const central = require('./topic/central');
+const plantStatus = require('./topic/plantStatus');
+const darkMode = require('./topic/darkmode');
 
-const subscribedTopic = ["moisture", "central", "plantStatus"];
+const subscribedTopic = ["moisture","central","plantStatus","darkmode"]
 
 // START OF REAL CONNECTION
 
@@ -57,27 +58,25 @@ client.on("message", async (topic, message) => {
   // Simple log
   console.log(`${topic} has published.`);
 
-  switch (topic) {
-    case "embedded/moisture":
-      // console.log(message.toString());
-      res = await moisture.insertNewMoisture(message.toString());
-      if (res.ignore != true) {
-        client.publish(
-          `embedded/watering/${res.index}`,
-          JSON.stringify({
-            activate: res.water,
-          })
-        );
-        console.log(`Also change ${res.index} hardware water to ${res.water}.`);
-      }
-      break;
-    case "embedded/central":
-      central.updateCentral(message.toString());
-      break;
-    case "embedded/plantStatus":
-      plantStatus.insertNewPlantStatus(message.toString());
-      break;
-  }
+    switch(topic) {
+        case ("embedded/moisture"):
+            res = await moisture.insertNewMoisture(message.toString())
+            if(res.ignore != true){
+                client.publish(`embedded/watering/${res.index}`, JSON.stringify({
+                    activate: res.water
+                }));
+                console.log(`Also change hardware water to ${res.water}.`)
+            }
+            break;
+        case ("embedded/central"):
+            central.updateCentral(message.toString())
+            break;
+        case ("embedded/plantStatus"):
+            plantStatus.insertNewPlantStatus(message.toString())
+            break;
+        case ("embedded/darkmode"):
+            darkMode.updateDarkmode(message.toString())
+    }
 });
 
 module.exports = client;
