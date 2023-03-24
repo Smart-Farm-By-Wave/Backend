@@ -12,7 +12,7 @@ exports.getGraph = catchAsync(async (req, res, next) => {
     const cur_time = Date.now()
 
     // For testing use this
-    // const cur_time = 1677847046757
+    // const cur_time = 1679667957617
 
     const dataEnum = ["temp","humidity","rainfall","soilMoisture"]
     const timeEnum = ["hour","day","week"]
