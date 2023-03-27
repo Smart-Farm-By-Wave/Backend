@@ -25,7 +25,7 @@ exports.insertNewPlantStatus = async (data) => {
         { $sort : {timeStamp : -1}}
     ])
 
-    const newestRain = aggregate[0].rainAmount
+    const newestRain = aggregate[0].rainAmount || 0
 
     let newCalcRain = (json_data.rainAmount - newestRain)
     
