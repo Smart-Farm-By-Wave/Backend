@@ -10,9 +10,24 @@ exports.insertNewPlantStatus = async (data) => {
     // console.log(`in = ${json_data}`)
     
     // FIX RAIN AMOUNT
-    const newest = await CentralGraph.find().sort({ timeStamp: -1 }).limit(1)
+    // const newest = await CentralGraph.find().sort({ timeStamp: -1 }).limit(1)
     // console.log(json_data.rainAmount)
-    let newCalcRain = (json_data.rainAmount - newest[0].rainAmount) / ((json_data.timeStamp - newest[0].timeStamp) / 1000)
+
+    // Alternative formula
+    const date = new Date(Date.now() - 1000*60*60*24)
+    let query = { $match : {"timeStamp" : {$gt : new Date(Date.now() - 1000*60*60*24*3)}}}
+    let aggregate = await CentralGraph.aggregate([
+        query,
+        { $set : {
+            day : { $dayOfMonth : { date : "$timeStamp" , timezone: "+07" }}
+        }},
+        { $match: {"day" : date.getDate()}},
+        { $sort : {timeStamp : -1}}
+    ])
+
+    const newestRain = aggregate[0].rainAmount
+
+    let newCalcRain = (json_data.rainAmount - newestRain)
     
     if(newCalcRain < 0 || newCalcRain == NaN){
         newCalcRain = 0
