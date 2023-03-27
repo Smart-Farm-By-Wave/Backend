@@ -9,19 +9,19 @@ const subscribedTopic = ["moisture","central","plantStatus","darkmode"]
 
 // START OF REAL CONNECTION
 
-const host = 'broker.emqx.io'
-const MQTTport = '1883'
-const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
+const host = "192.168.18.107";
+const MQTTport = "1883";
+const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
-const connectUrl = `mqtt://${host}:${MQTTport}`
+const connectUrl = `mqtt://${host}:${MQTTport}`;
 const client = mqtt.connect(connectUrl, {
   clientId,
   clean: true,
   connectTimeout: 4000,
-  username: 'emqx',
-  password: 'public',
+  username: "emqx",
+  password: "public",
   reconnectPeriod: 1000,
-})
+});
 
 // END OF REAL CONNECTION
 
@@ -29,7 +29,7 @@ const client = mqtt.connect(connectUrl, {
 
 // const MQTT_SERVER = "0.0.0.0";
 // const MQTT_PORT = "1883";
-// const MQTT_USER = ""; 
+// const MQTT_USER = "";
 // const MQTT_PASSWORD = "";
 
 // // Connect MQTT
@@ -42,21 +42,21 @@ const client = mqtt.connect(connectUrl, {
 
 // // END OF LOCAL CONNECTION
 
-client.on('connect', function () {
-    // Subscribe any topic
-    console.log("MQTT Connect");
-    subscribeTo(client, subscribedTopic)
+client.on("connect", function () {
+  // Subscribe any topic
+  console.log("MQTT Connect");
+  subscribeTo(client, subscribedTopic);
 });
 
 // Receive Message and print on terminal
-client.on('message', async (topic, message) => {
-    // message is Buffer
+client.on("message", async (topic, message) => {
+  // message is Buffer
 
-    // Detailed log message from topic
-    // console.log(`${topic} : ${message.toString()}`);
+  // Detailed log message from topic
+  // console.log(`${topic} : ${message.toString()}`);
 
-    // Simple log 
-    console.log(`${topic} has published.`)
+  // Simple log
+  console.log(`${topic} has published.`);
 
     switch(topic) {
         case ("embedded/moisture"):
